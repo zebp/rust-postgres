@@ -24,7 +24,7 @@ all-features = true
 circle-ci = { repository = "sfackler/rust-postgres" }
 
 [features]
-default = ["runtime"]
+default = ["runtime", "dep:socket2"]
 runtime = ["tokio/net", "tokio/time"]
 
 array-impls = ["postgres-types/array-impls"]
@@ -40,6 +40,7 @@ with-uuid-0_8 = ["postgres-types/with-uuid-0_8"]
 with-uuid-1 = ["postgres-types/with-uuid-1"]
 with-time-0_2 = ["postgres-types/with-time-0_2"]
 with-time-0_3 = ["postgres-types/with-time-0_3"]
+js = ["postgres-protocol/js"]
 
 [dependencies]
 async-trait = "0.1"
@@ -57,9 +58,7 @@ postgres-protocol = { version = "0.6.5", path = "../postgres-protocol" }
 postgres-types = { version = "0.2.4", path = "../postgres-types" }
 tokio = { version = "1.27", features = ["io-util"] }
 tokio-util = { version = "0.7", features = ["codec"] }
-
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-socket2 = { version = "0.5", features = ["all"] }
+socket2 = { version = "0.5", features = ["all"], optional = true }
 
 [dev-dependencies]
 futures-executor = "0.3"
